@@ -1,19 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import NavigationLayout from './pages/NavigationLayout';
+import DiceRoll from './pages/DiceRoll';
+import About from './pages/About';
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <NavigationLayout />,
+        children : [
+            { path: '/', element: <DiceRoll /> },
+            { path: '/about', element: <About /> },
+        ],
+    },
+])
 
 function App() {
-
-    return (
-        <div className="App">
-            <h1>Welcome to Dice Roll Calculator!</h1>
-            <p>This is a web app for calculating dice rolls.<br/>You can define your throw via a formula and roll for results.</p>
-            <button style={{cursor: 'pointer', fontSize: 'xx-large'}}>
-                Test
-            </button>
-            <p>Source code hosted on <a href="https://github.com/sourcefranke/dice-roll-calculator">GitHub</a></p>
-        </div>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
