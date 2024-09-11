@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import NavigationLayout from './pages/NavigationLayout';
+import DiceRoll from './pages/DiceRoll';
+import About from './pages/About';
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <NavigationLayout />,
+        children : [
+            { path: '/', element: <DiceRoll /> },
+            { path: '/about', element: <About /> },
+        ],
+    },
+])
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
