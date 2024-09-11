@@ -1,6 +1,6 @@
+import './DiceRoll.css';
 import { useState } from 'react';
-
-import { interpretFormula } from '../logic/DiceRollCalculator'
+import { interpret } from '../logic/DiceRollCalculator'
 
 export default function DiceRoll() {
 
@@ -10,36 +10,38 @@ export default function DiceRoll() {
         event.preventDefault();
         const data = Object.fromEntries(new FormData(event.target).entries());
 
-        const result = interpretFormula(data.formula);
+        const result = interpret(data.formula).calculate();
         setResult(result);
     }
 
     return (
-        <>
-        <form onSubmit={handleSubmit}>
-            <h1>Calculator</h1>
+        <div className="Center">
+        <div>
+            <form onSubmit={handleSubmit}>
+                <h1>Calculator</h1>
+                <div>
+                    <label htmlFor="formula">Enter your formula</label>
+                    <br/>
+                    <input id="formula" type="text" name="formula" />
+                </div>
+                <button>Roll it!</button>
+            </form>
+
             <div>
-                <label htmlFor="formula">Enter your formula</label>
-                <br/>
-                <input id="formula" type="text" name="formula" />
+                <p>{result}</p>
             </div>
-            <button>Roll it!</button>
-        </form>
 
-        <div>
-            <p>{result}</p>
+            <div>
+                <h2>Examples</h2>
+                <ul>
+                    <li>d6</li>
+                    <li>d12</li>
+                    <li>d20</li>
+                    <li>2d6</li>
+                    <li>2d20 + 4</li>
+                </ul>
+            </div>
         </div>
-
-        <div>
-            <h2>Examples</h2>
-            <ul>
-                <li>d6</li>
-                <li>d12</li>
-                <li>d20</li>
-                <li>2d6</li>
-                <li>2d20 + 4</li>
-            </ul>
         </div>
-        </>
     );
 }
