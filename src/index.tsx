@@ -1,18 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+import './index.css';
+import App from './App';
+
+import { register } from "@public-ui/components";
+import { defineCustomElements } from "@public-ui/components/dist/loader";
+import { DEFAULT } from "@public-ui/themes";
+
+register(DEFAULT, defineCustomElements)
+  .then(() => {
+    const root = ReactDOM.createRoot(
+      document.getElementById('root') as HTMLElement
+    );
+    root.render(
+      <React.StrictMode>
+         <App />
+      </React.StrictMode>
 );
-root.render(
-  <React.StrictMode>
-     <App />
-  </React.StrictMode>
-);
+})
+.catch(console.warn);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
