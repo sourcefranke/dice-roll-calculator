@@ -1,34 +1,42 @@
-import './DiceRoll.css';
 import { useState } from 'react';
-import { interpret } from '../logic/DiceRollCalculator'
+import { KolForm, KolInputText, KolButton } from "@public-ui/react";
+
+import './DiceRoll.css';
+import { interpret } from '../logic/DiceRollCalculator';
 
 export default function DiceRoll() {
 
     const [result, setResult] = useState(0);
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        const data = Object.fromEntries(new FormData(event.target).entries());
-
-        const result = interpret(data.formula).calculate();
-        setResult(result);
-    }
+    const formSubmit = {
+        onSubmit: (e) => {
+            alert(JSON.stringify(e));
+            const result = interpret(e).calculate();
+            setResult(result);
+        }
+      };
 
     return (
         <div className="Center">
         <div>
-            <form onSubmit={handleSubmit}>
+            <KolForm _on={formSubmit}>
                 <h1>Calculator</h1>
-                <div>
-                    <label htmlFor="formula">Enter your formula</label>
-                    <br/>
-                    <input id="formula" type="text" name="formula" />
+                <div className="d-grid gap-4">
+                    <KolInputText _id="formulaInput" _name="formulaInput" _label="formula" _placeholder='Insert Formula here, e.g. "d6"'></KolInputText>
                 </div>
-                <button>Roll it!</button>
-            </form>
+                <KolButton _label="Roll!" _type="submit"></KolButton>
+            </KolForm>
 
             <div>
                 <p>{result}</p>
+            </div>
+
+  <div className="d-grid gap-4">
+            <KolInputText
+            	_type="text"
+            	_label="Mit Button"
+            	_smart-button='{"_hideLabel": true, "_label": "Roll!"}'
+            ></KolInputText>
             </div>
 
             <div>
