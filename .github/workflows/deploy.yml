@@ -37,7 +37,7 @@ jobs:
           git config --global user.email $MY_EMAIL
           git config --global user.name $MY_NAME
           git remote set-url origin https://$MY_NAME:${{ secrets.GH_SECRET }}@github.com/$MY_NAME/dice-roll-calculator.git
-          npm run deploy
+          npm run build
 
       - uses: actions/configure-pages@v3
 
