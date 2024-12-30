@@ -20,7 +20,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy
+      - name: Git
         env:
           MY_EMAIL: lukas.tietenberg@outlook.de
           MY_NAME: sourcefranke
