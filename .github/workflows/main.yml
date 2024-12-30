@@ -20,6 +20,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Deploy
+        env:
+          MY_EMAIL: lukas.tietenberg@outlook.de
+          MY_NAME: sourcefranke
+        run: |
+          git config --global user.email $MY_EMAIL
+          git config --global user.name $MY_NAME
+          git remote set-url origin https://$MY_NAME:${{ secrets.GH_SECRET }}@github.com/$MY_NAME/dice-roll-calculator.git
+
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
