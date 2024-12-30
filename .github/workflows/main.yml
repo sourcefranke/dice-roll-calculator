@@ -20,15 +20,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Git
-        env:
-          MY_EMAIL: lukas.tietenberg@outlook.de
-          MY_NAME: sourcefranke
-        run: |
-          git config --global user.email $MY_EMAIL
-          git config --global user.name $MY_NAME
-          git remote set-url origin https://$MY_NAME:${{ secrets.GH_SECRET }}@github.com/$MY_NAME/dice-roll-calculator.git
-
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
@@ -39,7 +30,14 @@ jobs:
         run: npm install
 
       - name: Build 🏗️
-        run: npm run deploy
+        env:
+          MY_EMAIL: lukas.tietenberg@outlook.de
+          MY_NAME: sourcefranke
+        run: |
+          git config --global user.email $MY_EMAIL
+          git config --global user.name $MY_NAME
+          git remote set-url origin https://$MY_NAME:${{ secrets.GH_SECRET }}@github.com/$MY_NAME/dice-roll-calculator.git
+          npm run deploy
 
       - uses: actions/configure-pages@v3
 
